@@ -4,8 +4,10 @@ import CampaignCard from './components/CampaignCard'
 import FilterBar from './components/FilterBar'
 import Header from './components/Header'
 import Stats from './components/Stats'
+import InvoiceProcessor from './pages/InvoiceProcessor'
 
 function App() {
+  const [currentPage, setCurrentPage] = useState('home')
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('Tümü')
   const [selectedCompany, setSelectedCompany] = useState('Tümü')
@@ -41,9 +43,35 @@ function App() {
     return filtered
   }, [searchTerm, selectedCategory, selectedCompany, sortBy])
 
+  // Route to invoice processor
+  if (currentPage === 'invoice') {
+    return <InvoiceProcessor />
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       <Header />
+
+      {/* Navigation Banner */}
+      <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <span className="text-2xl">🤖</span>
+              <div>
+                <h3 className="font-bold text-lg">Yeni: Fatura İşleyici & Analist Bot!</h3>
+                <p className="text-sm text-purple-100">AI ile faturalarınızı otomatik analiz edin</p>
+              </div>
+            </div>
+            <button
+              onClick={() => setCurrentPage('invoice')}
+              className="bg-white text-purple-600 px-6 py-2 rounded-lg font-semibold hover:bg-purple-50 transition-colors shadow-lg"
+            >
+              Hemen Dene
+            </button>
+          </div>
+        </div>
+      </div>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Stats
